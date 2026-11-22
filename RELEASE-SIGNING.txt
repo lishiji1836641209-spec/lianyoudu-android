@@ -1,0 +1,15 @@
+正式 APK 签名（仅首次初始化一次）
+
+本目录 .release-signing 被忽略，须由授权负责人保管并另做安全离线备份；目录含私钥及密码，禁止提交、打包、截图或写入日志。生产私钥丢失将影响后续同身份升级。不得在已存在目录上重新生成；确认备份及分发身份后继续。
+
+在 android-app 目录运行以下命令创建新身份（使用 JDK keytool 与 openssl）：
+  set -e
+  umask 077
+  mkdir .release-signing
+  openssl rand -base64 36 > .release-signing/store.pass
+  openssl rand -base64 36 > .release-signing/key.pass
+  keytool -genkeypair -keystore .release-signing/release.jks -storetype JKS -alias lianyoudu-release -keyalg RSA -keysize 3072 -validity 10000 -dname 'CN=Lianyoudu' -storepass:file .release-signing/store.pass -keypass:file .release-signing/key.pass
+
+如中途失败，保留现状交负责人处理，不能盲目覆盖已有正式密钥。设置 LIANYOUDU_RELEASE_SIGNING_DIR 为该私有目录的绝对路径，再运行 Gradle assembleRelease；密码不通过命令行或 Gradle 参数传入。未提供三份文件时正式 release 打包失败，绝不回退到 debug 签名。最终构建须由测试核验包名、版本、证书和签名，且仅分发经过验收的工件。
+
+首次外部分发采用新的正式证书；它无法直接覆盖旧 debug 签名的同包名应用。禁止为安装而卸载含用户数据的旧应用。诊断包使用独立 applicationId 和显式 localUpgradeSigning，不代表正式签名。

@@ -1,0 +1,16 @@
+.gradle/
+**/build/
+local.properties
+*.jks
+*.keystore
+.release-signing/
+review/v03/device-private/
+review/v04/device-private/
+/review/
+/delivery/
+**/build-isolated/
+**/build-*/
+*.apk
+*.aab
+*.pass
+.DS_Store

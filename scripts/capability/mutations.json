@@ -1,0 +1,44 @@
+[
+  {
+    "name": "food_home_zero",
+    "case": "food",
+    "old": "? \"饮食摄入 —\"",
+    "new": "? \"饮食摄入 0 千卡\"",
+    "expected_failure": "empty home energy actual text="
+  },
+  {
+    "name": "food_nutrition_zero",
+    "case": "food",
+    "old": "metric(intake == null ? \"—\" : String.format(Locale.CHINA, \"%,.0f\", intake), \"千卡\", 34));",
+    "new": "metric(intake == null ? \"0\" : String.format(Locale.CHINA, \"%,.0f\", intake), \"千卡\", 34));",
+    "expected_failure": "empty nutrition actual text="
+  },
+  {
+    "name": "food_daily_zero",
+    "case": "food",
+    "old": "metric(intake == null ? \"—\" : String.format(Locale.CHINA, \"%,.0f\", intake), \"千卡\", 30));",
+    "new": "metric(intake == null ? \"0\" : String.format(Locale.CHINA, \"%,.0f\", intake), \"千卡\", 30));",
+    "expected_failure": "empty daily energy actual text="
+  },
+  {
+    "name": "device_wrong_survivor",
+    "case": "device",
+    "old": "wanted.removeAll(known);",
+    "new": "wanted.retainAll(known);",
+    "expected_failure": "remembered A appears exactly once"
+  },
+  {
+    "name": "device_wrong_target",
+    "case": "device",
+    "old": "main.setOnClickListener(v -> connectDevice(address));",
+    "new": "main.setOnClickListener(v -> connectDevice(db.setting(\"heart.device.address\", \"\")));",
+    "expected_failure": "B click targets B address"
+  },
+  {
+    "name": "bodyweight_extra_input",
+    "case": "bodyweight",
+    "old": "boolean showWeight = !e.timed && !e.unit.isEmpty();",
+    "new": "boolean showWeight = !e.timed;",
+    "expected_failure": "徒手深蹲 input count=2"
+  }
+]

@@ -1,0 +1,54 @@
+plugins { id 'com.android.application' }
+def isolatedAudit = project.hasProperty('isolatedAudit')
+// Opt-in only; default and existing device-audit builds keep their IDs and runner.
+def capabilityAudit = project.hasProperty('capabilityAudit')
+def diagnosticSigning = project.hasProperty('localUpgradeSigning')
+def diagnosticBuild = isolatedAudit || capabilityAudit || project.hasProperty('deviceAudit')
+if (diagnosticSigning && !diagnosticBuild) throw new GradleException('localUpgradeSigning is only available for isolated diagnostic packages')
+def releaseDir = System.getenv('LIANYOUDU_RELEASE_SIGNING_DIR')
+def releaseStore = releaseDir ? new File(releaseDir, 'release.jks') : null
+def releasePass = releaseDir ? new File(releaseDir, 'store.pass') : null
+def releaseKeyPass = releaseDir ? new File(releaseDir, 'key.pass') : null
+def releaseReady = releaseStore?.isFile() && releasePass?.isFile() && releaseKeyPass?.isFile()
+if (capabilityAudit && (isolatedAudit || project.hasProperty('deviceAudit'))) {
+    throw new GradleException('capabilityAudit cannot be combined with deviceAudit or isolatedAudit')
+}
+android {
+    namespace 'com.lianyoudu.app'
+    compileSdk 36
+    defaultConfig {
+        applicationId capabilityAudit ? 'com.lianyoudu.app.mutationtest' : project.hasProperty('deviceAudit') ? 'com.lianyoudu.app.qa' : isolatedAudit ? 'com.lianyoudu.app.audit' : 'com.lianyoudu.app'
+        resValue 'string', 'app_name', project.hasProperty('deviceAudit') ? '练有度·测试' : isolatedAudit ? '练有度·验收' : '练有度'
+        minSdk 31
+        targetSdk 36
+        versionCode 16
+        versionName '0.6.4'
+        testInstrumentationRunner capabilityAudit ? 'com.lianyoudu.app.CapabilityInstrumentation' : 'com.lianyoudu.app.AuditInstrumentation'
+    }
+    signingConfigs {
+        if (releaseReady) {
+            externalRelease {
+                storeFile releaseStore
+                storePassword releasePass.getText('UTF-8').trim()
+                keyAlias 'lianyoudu-release'
+                keyPassword releaseKeyPass.getText('UTF-8').trim()
+            }
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            debuggable false
+            if (diagnosticSigning) signingConfig signingConfigs.debug
+            else if (!diagnosticBuild && releaseReady) signingConfig signingConfigs.externalRelease
+        }
+    }
+    compileOptions { sourceCompatibility JavaVersion.VERSION_17; targetCompatibility JavaVersion.VERSION_17 }
+}
+gradle.taskGraph.whenReady { graph ->
+    def releasePackaging = graph.allTasks.any { it.project == project && it.name ==~ /(?i)(package|bundle|assemble|sign).*release.*/ }
+    if (releasePackaging && !diagnosticSigning && !releaseReady)
+        throw new GradleException('Release signing materials missing; see RELEASE-SIGNING.txt')
+    if (releasePackaging && diagnosticBuild && !diagnosticSigning)
+        throw new GradleException('Diagnostic release requires explicit localUpgradeSigning')
+}

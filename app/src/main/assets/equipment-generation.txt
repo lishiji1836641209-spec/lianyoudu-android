@@ -1,0 +1,8 @@
+器材配图生成说明
+
+方式：内置图像生成工具。
+原始图集：equipment-catalog.png
+原型使用：equipment-catalog.jpg（内嵌到原型，显示时按六个区域取图）
+
+生成提示词：
+Use case: product-mockup. Create one cohesive equipment catalog contact sheet for a refined Chinese fitness app. A precise 3 by 2 grid, six equal square cells, no borders, no words, no logos. Each object centered with generous padding, complete unclipped object, orthographic three-quarter product photography mixed with refined realistic 3D rendering, matte rubber and satin metal, very soft studio shadows, uniform pale lavender-white background. Top row left: lavender rolled yoga mat with short unrolled end. Top row center: pair of charcoal adjustable dumbbells with subtle lavender detail. Top row right: mint and graphite road bicycle, anatomically mechanically plausible two wheels and drop handlebars, full side view. Bottom row left: lavender resistance band loop. Bottom row center: charcoal kettlebell with subtle warm beige details. Bottom row right: graphite indoor bicycle trainer with bicycle mounted. Consistent lighting and realistic equipment proportions, elegant restrained athletic aesthetic, not icons, no people. Landscape 3:2 overall composition.

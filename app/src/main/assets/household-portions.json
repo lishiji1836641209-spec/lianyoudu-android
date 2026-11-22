@@ -1,0 +1,103 @@
+{
+  "source_version": "USDA SR Legacy April 2018",
+  "archive_url": "https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_sr_legacy_food_csv_2018-04.zip",
+  "archive_sha256": "b80817294b8850530aaedf2e515c02593b1824f763a0ff356e5c2081643e6fd0",
+  "scope": "2 exact food IDs only; data preparation, not validation",
+  "foods": {
+    "169757": {
+      "source_description": "Rice, white, long-grain, regular, unenriched, cooked without salt",
+      "references": [
+        {
+          "id": "rice_bowl",
+          "label_zh": "1参考碗",
+          "definition_zh": "约240毫升，平口、不堆尖、不压实",
+          "grams": 158.0,
+          "approximate": true,
+          "edible_portion_only": true,
+          "source_portion_row_id": "85462",
+          "source_amount": "1",
+          "source_modifier": "cup",
+          "source_gram_weight": "158",
+          "factor": 1,
+          "derivation": "source gram_weight × factor; no change to food state or nutrient density",
+          "bowl_definition_is_product_adaptation": true,
+          "volume_reference": {
+            "cup_approx_ml": 240,
+            "source_url": "https://www.nist.gov/pml/owm/metric-si/metric-kitchen/metric-kitchen-cooking-measurement-equivalencies",
+            "limit": "Approximate capacity only; source CSV does not specify bowl or packing"
+          }
+        },
+        {
+          "id": "rice_half_bowl",
+          "label_zh": "半参考碗",
+          "definition_zh": "约120毫升食物体积，非碗高度的一半",
+          "grams": 79.0,
+          "approximate": true,
+          "edible_portion_only": true,
+          "source_portion_row_id": "85462",
+          "source_amount": "1",
+          "source_modifier": "cup",
+          "source_gram_weight": "158",
+          "factor": 0.5,
+          "derivation": "source gram_weight × factor; no change to food state or nutrient density",
+          "bowl_definition_is_product_adaptation": true,
+          "volume_reference": {
+            "cup_approx_ml": 240,
+            "source_url": "https://www.nist.gov/pml/owm/metric-si/metric-kitchen/metric-kitchen-cooking-measurement-equivalencies",
+            "limit": "Approximate capacity only; source CSV does not specify bowl or packing"
+          }
+        }
+      ]
+    },
+    "173944": {
+      "source_description": "Bananas, raw",
+      "references": [
+        {
+          "id": "banana_small",
+          "label_zh": "小根1根（去皮）",
+          "definition_zh": "长度约15.2—17.5厘米",
+          "grams": 101.0,
+          "approximate": true,
+          "edible_portion_only": true,
+          "source_portion_row_id": "93514",
+          "source_amount": "1",
+          "source_modifier": "small (6\" to 6-7/8\" long)",
+          "source_gram_weight": "101",
+          "factor": 1,
+          "derivation": "source gram_weight × factor; no change to food state or nutrient density",
+          "bowl_definition_is_product_adaptation": false
+        },
+        {
+          "id": "banana_medium",
+          "label_zh": "中根1根（去皮）",
+          "definition_zh": "长度约17.8—20.0厘米",
+          "grams": 118.0,
+          "approximate": true,
+          "edible_portion_only": true,
+          "source_portion_row_id": "93515",
+          "source_amount": "1",
+          "source_modifier": "medium (7\" to 7-7/8\" long)",
+          "source_gram_weight": "118",
+          "factor": 1,
+          "derivation": "source gram_weight × factor; no change to food state or nutrient density",
+          "bowl_definition_is_product_adaptation": false
+        },
+        {
+          "id": "banana_large",
+          "label_zh": "大根1根（去皮）",
+          "definition_zh": "长度约20.3—22.5厘米",
+          "grams": 136.0,
+          "approximate": true,
+          "edible_portion_only": true,
+          "source_portion_row_id": "93516",
+          "source_amount": "1",
+          "source_modifier": "large (8\" to 8-7/8\" long)",
+          "source_gram_weight": "136",
+          "factor": 1,
+          "derivation": "source gram_weight × factor; no change to food state or nutrient density",
+          "bowl_definition_is_product_adaptation": false
+        }
+      ]
+    }
+  }
+}
